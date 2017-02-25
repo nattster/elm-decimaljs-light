@@ -24,9 +24,16 @@ fromInt =
     Native.DecimalLight.fromInt
 
 
-fromString : String -> Decimal
-fromString =
-    Native.DecimalLight.fromString
+fromString : String -> Maybe Decimal
+fromString val =
+    let
+        result =
+            Native.DecimalLight.fromString val
+    in
+        if Native.DecimalLight.ERR == result then
+            Nothing
+        else
+            Just result
 
 
 toString : Decimal -> String

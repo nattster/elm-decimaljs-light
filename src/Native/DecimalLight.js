@@ -4,12 +4,20 @@
 
 
 var _user$project$Native_DecimalLight = function(){
+    var ERR = "ERR";
     function fromInt(value) {
         return new Decimal(value);
     }
 
     function fromString(value) {
-        var v= new Decimal(value);
+        var v = ERR;
+        try {
+            v = new Decimal(value);
+        } catch (e) {
+            if ( e instanceof Error && /DecimalError/.test(e.message) ) {
+                return ERR;
+            }
+        }
         return v;
     }
 
@@ -165,6 +173,7 @@ var _user$project$Native_DecimalLight = function(){
         ROUND_HALF_EVEN: Decimal.ROUND_HALF_EVEN,
         ROUND_HALF_CEIL: Decimal.ROUND_HALF_CEIL,
         ROUND_HALF_FLOOR: Decimal.ROUND_HALF_FLOOR,
+        ERR: ERR
     };
 }();
 
